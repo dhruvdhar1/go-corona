@@ -7,3 +7,11 @@ export function getGlobalCoronaData(data = [], action) {
         return data;
     }
   }
+export function getSelectedCountry(data = {}, action) {
+    switch (action.type) {
+      case types.GET_SELECTED_COUNTRY:
+        return action.selectedCountry;
+      default:
+        return data;
+    }
+  }

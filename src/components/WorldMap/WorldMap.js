@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
+import * as actions from '../../actions/Application/actions';
 
 am4core.useTheme(am4themes_animated);
 
@@ -19,7 +21,7 @@ class WorldMap extends Component {
     }
 
     componentDidMount() {
-        let countryName;
+        const { getSelectedCountryObject } = this.props;
         let chart = am4core.create("chartdiv", am4maps.MapChart);
         chart.geodata = am4geodata_worldLow;
         chart.projection = new am4maps.projections.Miller();
@@ -35,11 +37,8 @@ class WorldMap extends Component {
         polygonTemplate.fill = am4core.color("#878a87");
         polygonTemplate.events.on("hit", function(ev) {
             ev.target.series.chart.zoomToMapObject(ev.target);
-            countryName = ev.target.dataItem.dataContext;
-            // hello(ev.target.dataItem.dataContext);
+            getSelectedCountryObject(ev.target.dataItem.dataContext);
         })
-
-        console.log(countryName);
         var hs = polygonTemplate.states.create("hover");
         hs.properties.fill = am4core.color("#e8912e");
         chart.zoomControl = new am4maps.ZoomControl();
@@ -58,4 +57,14 @@ class WorldMap extends Component {
         )
     }
 }
-export default WorldMap;
+
+export function mapDispatchToProps(dispatch) {
+    return {
+        getSelectedCountry: data => dispatch(actions.getSelectedCountry(data)),
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(WorldMap);

@@ -9,32 +9,50 @@
     z-index: 0;
     margin-top: 1rem;
     width: 100%;
-    // border: solid aquamarine;
 }
 .info-container{
     display: flex;
+    // flex-direction: column;
+    // flex-wrap: wrap;
     margin-top: 1rem;
     width: 100%;
     height: calc(100vh - 600px);
-    // border: solid rebeccapurple;
+    border: solid aquamarine;
     .sub-info-container{
         display: flex;
-        flex-wrap: wrap;
-        display: flex;
+        flex-direction: column;
         width: 50%;
         height: auto;
-        .sub-vertical-section {
-            padding-left: 20px;
-            padding-top: 10px;
+        .country-info{
             display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 35%;
-            // border: solid hotpink;
+            // border: solid red;
+            height: 3.5rem;
+            .country-flag {
+                margin: 5px 5px 5px 10px;
+            }
+            .country-text{
+                padding-top: 5px;
+                padding-left: 10px;
+                font-family: 'Roboto', sans-serif;
+                font-size: 25px;
+            }
+        }
+        .data-point-container{
+            display: flex;
+            border: solid yellowgreen;
+            .sub-vertical-section {
+                padding-left: 20px;
+                padding-top: 10px;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                width: 35%;
+            }
         }
     }
 }
 .custom-pie-chart-container {
     margin-left: 10px;
+    margin-right: 10px;
     border: solid #e8912e;
 }

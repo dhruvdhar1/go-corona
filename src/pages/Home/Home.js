@@ -6,8 +6,10 @@ import ClipLoader from "react-spinners/BounceLoader";
 import urls from '../../constants/urls'
 import * as actions from '../../actions/Application/actions';
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
+import DetailsPane from '../../components/DetailsPane/DetailsPane';
 import WorldMap from '../../components/WorldMap/WorldMap'
 import Topbar from '../../components/Topbar/Topbar'
+import { formatCountrySpecificCoronaDataForDoughnutChart } from '../../deserializer/countrySpecificDataDeserializer';
 import './Home.scss';
 
 const override = css`
@@ -26,9 +28,26 @@ class Home extends PureComponent {
 
     componentDidMount() {
         this.fetchGlobalCoronaData();
+        this.fetchCountrySpeceficCoronaData('china');
+    }
+
+    shouldComponentUpdate() {
+        const { selectedCountry } = this.props;
+        return selectedCountry.length;
     }
 
     componentWillUnmount() {
+        const { getSelectedCountry, getGlobalCoronaData } = this.props;
+        getGlobalCoronaData([]);
+        getSelectedCountry([]);
+        this.setState({
+            globalDataLoadComplete: false,
+        });
+    }
+
+    getSelectedCountryObject(countryData) {
+        console.log('Hellooooooo : ', countryData)
+        this.fetchCountrySpeceficCoronaData(countryData.name);
     }
 
     fetchGlobalCoronaData() {
@@ -37,19 +56,20 @@ class Home extends PureComponent {
             this.setState({
                 globalDataLoadComplete: true,
             });
-            console.log(response.data);
-            getGlobalCoronaData(response.data);
+            getGlobalCoronaData(formatCountrySpecificCoronaDataForDoughnutChart(response.data));
         }).catch();
     }
 
     fetchCountrySpeceficCoronaData(country) {
+        const { getSelectedCountry } = this.props;
         axios.get(`${urls.CORONA_COUNTRY_DATA}${country}`).then(response => {
-            console.log(response.data);
+            getSelectedCountry(formatCountrySpecificCoronaDataForDoughnutChart(response.data));
         }).catch();
     }
 
     render() {
         const { globalDataLoadComplete } = this.state;
+        const { globalData, selectedCountry } = this.props;
         return (
             <div>
                 {
@@ -69,24 +89,43 @@ class Home extends PureComponent {
                                     <Topbar />
                                 </div>
                                 <div className="map-container">
-                                    <WorldMap />
+                                    <WorldMap
+                                        getSelectedCountryObject={(data) => this.getSelectedCountryObject(data)} />
                                 </div>
                                 <div className="info-container">
-                                <div className="sub-info-container custom-pie-chart-container">
-                                        {/* <div className="sub-vertical-section">
-                                            <DetailsPane
-                                                colorPallet = {['#f2493d', '#6e2ce8', '#e86e2c', '#dfe82c', '#1ade16']}
-                                            />
+                                    <div className="sub-info-container custom-pie-chart-container">
+                                        <div className="country-info">
+                                            <img className="country-flag" src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" alt="country-flag" height={40} width={65} />
+                                            <span className="country-text">India</span>
                                         </div>
-                                        <div className="sub-vertical-section">
-                                            <DetailsPane 
-                                                colorPallet = {['#dfe82c', '#6e2ce8', '#e86e2c',  '#1ade16', '#f2493d']}
-                                            />
-                                        </div> */}
-                                        <DoughnutChart />
+                                        <div className="data-point-container">
+                                            {
+                                                selectedCountry.length && (
+                                                    <div>
+                                                        <div className="sub-vertical-section">
+                                                            <DetailsPane
+                                                                data={selectedCountry}
+                                                                colorPallet={['#f2493d', '#6e2ce8', '#e86e2c', '#dfe82c', '#1ade16']}
+                                                            />
+                                                        </div>
+                                                        <div className="sub-vertical-section">
+                                                            <DetailsPane
+                                                                data={selectedCountry}
+                                                                colorPallet={['#dfe82c', '#6e2ce8', '#e86e2c', '#1ade16', '#f2493d']}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+
+                                        </div>
                                     </div>
-                                    <div className="sub-info-container">
-                                        {/* <DoughnutChart /> */}
+                                    <div className="sub-info-container custom-pie-chart-container">
+                                        {
+                                            globalData.length && (
+                                                <DoughnutChart data={globalData} />
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -97,12 +136,20 @@ class Home extends PureComponent {
     }
 }
 
+export function mapStateToProps(store) {
+    return {
+        selectedCountry: store.getSelectedCountry,
+        globalData: store.getGlobalCoronaData,
+    }
+}
+
 export function mapDispatchToProps(dispatch) {
     return {
         getGlobalCoronaData: data => dispatch(actions.getGlobalCoronaData(data)),
+        getSelectedCountry: data => dispatch(actions.getSelectedCountry(data)),
     };
-} 
+}
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 )(Home);
