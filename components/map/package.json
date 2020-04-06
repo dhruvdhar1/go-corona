@@ -1,0 +1,19 @@
+{
+  "name": "@bit/sanzhardanybayev.ui-components.map",
+  "version": "1.0.5",
+  "homepage": "https://bit.dev/sanzhardanybayev/ui-components/map",
+  "main": "dist/Map.js",
+  "dependencies": {
+    "react": "^16.8.6",
+    "styled-components": "^4.2.0",
+    "prop-types": "^15.7.2"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "license": "SEE LICENSE IN LICENSE",
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/bundlers/webpack-css-modules@0.0.8"
+    }
+  }
+}

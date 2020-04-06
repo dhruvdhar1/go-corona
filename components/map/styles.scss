@@ -1,0 +1,64 @@
+.container{
+  position: absolute !important;
+  width: 50%;
+  margin-top: 4em;
+  top: 0;
+  right: 0;
+}
+
+div.reveal{
+  -webkit-transform: scale(1) rotate(360deg);
+  -moz-transform: scale(1) rotate(360deg);
+  -ms-transform: scale(1) rotate(360deg);
+  -o-transform: scale(1) rotate(360deg);
+  transform: scale(1) rotate(360deg);
+}
+
+
+
+div.activate{
+
+  opacity: 1;
+  z-index: 10;
+
+  -webkit-transform: scale(1.1) rotate(360deg);
+  -moz-transform: scale(1.1) rotate(360deg);
+  -ms-transform: scale(1.1) rotate(360deg);
+  -o-transform: scale(1.1) rotate(360deg);
+  transform: scale(1.1) rotate(360deg);
+
+  div:first-child{
+    opacity: 1;
+  }
+}
+
+.triangle {
+  position: absolute;
+  background-color: white;
+  text-align: left;
+  bottom: -5px;
+  left: calc(50% - 20px);
+}
+.triangle:before,
+.triangle:after {
+  content: '';
+  position: absolute;
+  background-color: inherit;
+}
+.triangle,
+.triangle:before,
+.triangle:after {
+  width:  10px;
+  height: 10px;
+  border-top-right-radius: 30%;
+}
+
+.triangle {
+  transform: rotate(0deg) skewX(-30deg) scale(1,.866);
+}
+.triangle:before {
+  transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
+}
+.triangle:after {
+  transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
+}

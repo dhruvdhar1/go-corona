@@ -1,0 +1,23 @@
+.field-container {
+    display: flex;
+    flex-wrap: wrap;
+    // border: solid red;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.fields-parent{
+    // border: solid green;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-family: 'Roboto', sans-serif;
+    color: ivory;
+    font-size: 25px;
+}
+.data-point{
+    margin-top: 5px;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@bit/grommet.grommet.world-map",
+  "version": "2.11.1",
+  "homepage": "https://bit.dev/grommet/grommet/world-map",
+  "main": "dist/components/WorldMap/index.js",
+  "dependencies": {
+    "recompose": "^0.30.0",
+    "react-desc": "^4.1.2",
+    "@bit/grommet.grommet.internal.default-props": "2.11.1",
+    "@bit/grommet.grommet.utils.index": "2.11.1",
+    "@bit/grommet.grommet.internal.utils.indexd": "2.11.1"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": ">= 16.6.1",
+    "styled-components": ">= 5.X"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/react@1.0.14"
+    }
+  }
+}
