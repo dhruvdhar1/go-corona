@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import axios from 'axios'
+import { connect } from 'react-redux';
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/BounceLoader";
 import urls from '../../constants/urls'
+import * as actions from '../../actions/Application/actions';
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
 import WorldMap from '../../components/WorldMap/WorldMap'
 import Topbar from '../../components/Topbar/Topbar'
@@ -30,11 +32,13 @@ class Home extends PureComponent {
     }
 
     fetchGlobalCoronaData() {
+        const { getGlobalCoronaData } = this.props;
         axios.get(urls.CORONA_GLOBAL_DATA).then(response => {
             this.setState({
                 globalDataLoadComplete: true,
             });
             console.log(response.data);
+            getGlobalCoronaData(response.data);
         }).catch();
     }
 
@@ -92,4 +96,13 @@ class Home extends PureComponent {
         )
     }
 }
-export default Home;
+
+export function mapDispatchToProps(dispatch) {
+    return {
+        getGlobalCoronaData: data => dispatch(actions.getGlobalCoronaData(data)),
+    };
+} 
+export default connect(
+    null,
+    mapDispatchToProps,
+)(Home);
