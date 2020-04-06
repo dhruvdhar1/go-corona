@@ -9,7 +9,8 @@ import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
 import DetailsPane from '../../components/DetailsPane/DetailsPane';
 import WorldMap from '../../components/WorldMap/WorldMap'
 import Topbar from '../../components/Topbar/Topbar'
-import { formatCountrySpecificCoronaDataForDoughnutChart } from '../../deserializer/countrySpecificDataDeserializer';
+import { formatCountrySpecificCoronaDataForDoughnutChart,
+    formatCountrySpecificCoronaDataForDetailsPane } from '../../deserializer/countrySpecificDataDeserializer';
 import './Home.scss';
 
 const override = css`
@@ -23,17 +24,18 @@ class Home extends PureComponent {
         super(props);
         this.state = {
             globalDataLoadComplete: false,
+            selectedCountryInfo: {
+                country: "China",
+                countryInfo: {
+                    flag: "https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/cn.png"
+                },
+            },
         }
     };
 
     componentDidMount() {
         this.fetchGlobalCoronaData();
         this.fetchCountrySpeceficCoronaData('china');
-    }
-
-    shouldComponentUpdate() {
-        const { selectedCountry } = this.props;
-        return selectedCountry.length;
     }
 
     componentWillUnmount() {
@@ -61,14 +63,18 @@ class Home extends PureComponent {
     }
 
     fetchCountrySpeceficCoronaData(country) {
-        const { getSelectedCountry } = this.props;
         axios.get(`${urls.CORONA_COUNTRY_DATA}${country}`).then(response => {
-            getSelectedCountry(formatCountrySpecificCoronaDataForDoughnutChart(response.data));
+            this.setState({
+                selectedCountryInfo: response.data,
+            }, () => {
+                const { getSelectedCountry } = this.props;
+                getSelectedCountry(formatCountrySpecificCoronaDataForDetailsPane(response.data));
+            });
         }).catch();
     }
 
     render() {
-        const { globalDataLoadComplete } = this.state;
+        const { globalDataLoadComplete, selectedCountryInfo } = this.state;
         const { globalData, selectedCountry } = this.props;
         return (
             <div>
@@ -95,23 +101,23 @@ class Home extends PureComponent {
                                 <div className="info-container">
                                     <div className="sub-info-container custom-pie-chart-container">
                                         <div className="country-info">
-                                            <img className="country-flag" src="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" alt="country-flag" height={40} width={65} />
-                                            <span className="country-text">India</span>
+                                            <img className="country-flag" src={selectedCountryInfo && selectedCountryInfo.countryInfo && selectedCountryInfo.countryInfo.flag} alt="country-flag" height={40} width={65} />
+                                            <span className="country-text">{`COVID-19 Statistics - ${selectedCountryInfo && selectedCountryInfo.country}`}</span>
                                         </div>
                                         <div className="data-point-container">
                                             {
                                                 selectedCountry.length && (
-                                                    <div>
+                                                    <div className="set-to-flex">
                                                         <div className="sub-vertical-section">
                                                             <DetailsPane
-                                                                data={selectedCountry}
+                                                                data={selectedCountry.splice(0, 3)}
                                                                 colorPallet={['#f2493d', '#6e2ce8', '#e86e2c', '#dfe82c', '#1ade16']}
                                                             />
                                                         </div>
                                                         <div className="sub-vertical-section">
                                                             <DetailsPane
                                                                 data={selectedCountry}
-                                                                colorPallet={['#dfe82c', '#6e2ce8', '#e86e2c', '#1ade16', '#f2493d']}
+                                                                colorPallet={['#fd7e14', '#ffc107', '#28a745', '#6f42c1']}
                                                             />
                                                         </div>
                                                     </div>

@@ -5,9 +5,17 @@ class DetailsPane extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            content: props.content || [],
+            content: props.data ? props.data : [],
             colorPallet: props.colorPallet,
         };
+    }
+    
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (prevState.content !== nextProps.content) {
+            return {
+                content: nextProps.data ? nextProps.data : []
+            }
+        }
     }
     renderContent(item, index) {
         const { colorPallet } = this.state;
@@ -24,7 +32,7 @@ class DetailsPane extends PureComponent {
         return (
             <div className="fields-parent">
                 {
-                    content.length && content.map((item, index) => {
+                    content.map((item, index) => {
                         return(
                             this.renderContent(item, index))
                     })

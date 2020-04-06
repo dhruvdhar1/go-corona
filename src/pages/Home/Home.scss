@@ -17,7 +17,7 @@
     margin-top: 1rem;
     width: 100%;
     height: calc(100vh - 600px);
-    border: solid aquamarine;
+    // border: solid aquamarine;
     .sub-info-container{
         display: flex;
         flex-direction: column;
@@ -39,14 +39,14 @@
         }
         .data-point-container{
             display: flex;
-            border: solid yellowgreen;
+            // border: solid yellowgreen;
             .sub-vertical-section {
                 padding-left: 20px;
                 padding-top: 10px;
                 display: flex;
                 flex-direction: column;
                 height: 100%;
-                width: 35%;
+                // width: 35%;
             }
         }
     }
@@ -55,4 +55,7 @@
     margin-left: 10px;
     margin-right: 10px;
     border: solid #e8912e;
+}
+.set-to-flex{
+    display: flex;
 }
