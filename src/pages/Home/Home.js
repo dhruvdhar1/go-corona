@@ -128,7 +128,7 @@ class Home extends PureComponent {
                                     </div>
                                     <div className="sub-info-container custom-pie-chart-container">
                                         <div className="mortality-rate-container">
-                                            {`mortalityRate: ${this.getMortalityRate()} %`}
+                                            {`Mortality Rate: ${this.getMortalityRate()} %`}
                                         </div>
                                         <div className="doughnut-chart-container">
                                         {
