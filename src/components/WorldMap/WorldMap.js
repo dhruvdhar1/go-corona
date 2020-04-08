@@ -5,7 +5,7 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import * as actions from '../../actions/Application/actions';
-
+import './WorldMap.scss';
 am4core.useTheme(am4themes_animated);
 
 class WorldMap extends Component {
@@ -56,7 +56,7 @@ class WorldMap extends Component {
     }
     render() {
         return (
-            <div id="chartdiv" style={{ width: "100%", height: "500px" }} onClick={(e) => this.getTooltipData(e)}></div>
+            <div id="chartdiv" className="world-map-root" onClick={(e) => this.getTooltipData(e)}></div>
         )
     }
 }

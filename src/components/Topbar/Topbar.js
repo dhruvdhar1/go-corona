@@ -67,27 +67,28 @@ class Topbar extends Component {
     render() {
         const { show, tabs } = this.state;
         return (
-            <div className="top-bar-root">
+            <div className="top-bar-root make-sticky">
                 <nav class="navbar navbar-expand-md navbar-light bg-light">
-                    <a href="http://www.google.com" class="navbar-brand">
-                        <img src={logo} height="28" alt="goCorona" />
+                    <a href="/" class="navbar-brand">
+                        <img src={logo} height="28" alt="goCorona" /> covid19curb
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" onClick={() => this.toggleMenu()}>
                         <span class="navbar-toggler-icon"></span>
-                    </button>
 
+                    </button>
                     <div class={`collapse navbar-collapse ${show}`} id="navbarCollapse">
                         <div class="navbar-nav nav-bar-background">
                             {
                                 tabs.map(tab => {
-                                    return(
+                                    return (
                                         <a href={tab.path} class={`nav-item nav-link ${tab.active}`} onClick={() => this.onTabClick(tab)}>{tab.name}</a>
                                     )
                                 })
                             }
                         </div>
                     </div>
-                </nav></div>
+                </nav>
+            </div>
         )
     }
 }

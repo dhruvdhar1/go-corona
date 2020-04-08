@@ -10,9 +10,11 @@ import DetailsPane from '../../components/DetailsPane/DetailsPane';
 import CountryTable from '../../components/CountryTable/CountryTable';
 import WorldMap from '../../components/WorldMap/WorldMap'
 import Topbar from '../../components/Topbar/Topbar'
-import { formatCountrySpecificCoronaDataForDoughnutChart,
+import {
+    formatCountrySpecificCoronaDataForDoughnutChart,
     formatCountrySpecificCoronaDataForDetailsPane,
-    formatGlobalDataForTable } from '../../deserializer/countrySpecificDataDeserializer';
+    formatGlobalDataForTable
+} from '../../deserializer/countrySpecificDataDeserializer';
 import './Home.scss';
 
 const override = css`
@@ -91,11 +93,11 @@ class Home extends PureComponent {
         cases = cases ? cases.value : 1;
         let deaths = selectedCountry && selectedCountry.find(object => object.key === 'deaths');
         deaths = deaths ? deaths.value : 0;
-        return ((deaths/cases) * 100).toFixed(2);
+        return ((deaths / cases) * 100).toFixed(2);
     }
 
     render() {
-        const { globalDataLoadComplete } = this.state;
+        const { globalDataLoadComplete, selectedCountryInfo } = this.state;
         const { selectedCountry, allCountriesData } = this.props;
         return (
             <div>
@@ -115,31 +117,40 @@ class Home extends PureComponent {
                                 <div className="top-bar-container">
                                     <Topbar />
                                 </div>
-                                <div>Please click on a location to load detailed stats.</div>
+                                <div className="info-heading">Please click on a location to load detailed stats.</div>
                                 <div className="map-container">
                                     <WorldMap
                                         getSelectedCountryObject={(data) => this.getSelectedCountryObject(data)} />
                                 </div>
-                                <div className="info-container">
-                                    <div className="sub-info-container custom-pie-chart-container">
-                                        <div className="data-point-container">
-                                            <CountryTable data={allCountriesData} />
+                                <div className="stats-and-copyright">
+                                    <div className="info-container">
+                                        <div className="sub-info-container custom-pie-chart-container">
+                                            <div className="mortality-rate-container">
+                                                <span className="mortality-rate">{`Mortality Rate: ${this.getMortalityRate()} %`}</span>
+                                                <span className="country-name">
+                                                    <img src={selectedCountryInfo.countryInfo.flag} height={25} width={35} alt="country-flag" />&nbsp;
+                                                {selectedCountryInfo.country}
+                                                </span>
+                                            </div>
+                                            <div className="doughnut-chart-container">
+                                                {
+                                                    selectedCountry.length && (
+                                                        <DoughnutChart data={selectedCountry} />
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="sub-info-container custom-pie-chart-container">
+                                            <div className="data-point-container">
+                                                <CountryTable data={allCountriesData} />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="sub-info-container custom-pie-chart-container">
-                                        <div className="mortality-rate-container">
-                                            {`Mortality Rate: ${this.getMortalityRate()} %`}
-                                        </div>
-                                        <div className="doughnut-chart-container">
-                                        {
-                                            selectedCountry.length && (
-                                                <DoughnutChart data={selectedCountry} />
-                                            )
-                                        }
-                                        </div>
-                                    </div>
+                                    <div className="seperator"></div>
+                                    <div className="copyright-text">&copy;copyright 2019-2020. All rights reserved.</div>
                                 </div>
                             </div>
+
                         )
                 }
             </div>

@@ -31,6 +31,8 @@ class DoughnutChart extends Component {
         let pieSeries = chart.series.push(new am4charts.PieSeries());
         pieSeries.dataFields.value = "value";
         pieSeries.dataFields.category = "key";
+        pieSeries.ticks.template.disabled = true;
+        pieSeries.labels.template.text = ''
         pieSeries.slices.template.stroke = am4core.color("#fff");
         pieSeries.slices.template.strokeWidth = 2;
         pieSeries.slices.template.strokeOpacity = 1;
