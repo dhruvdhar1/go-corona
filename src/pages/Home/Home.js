@@ -87,9 +87,9 @@ class Home extends PureComponent {
 
     getMortalityRate() {
         const { selectedCountry } = this.props;
-        let cases = selectedCountry.find(object => object.key === 'cases');
+        let cases = selectedCountry && selectedCountry.find(object => object.key === 'cases');
         cases = cases ? cases.value : 1;
-        let deaths = selectedCountry.find(object => object.key === 'deaths');
+        let deaths = selectedCountry && selectedCountry.find(object => object.key === 'deaths');
         deaths = deaths ? deaths.value : 0;
         return ((deaths/cases) * 100).toFixed(2);
     }
