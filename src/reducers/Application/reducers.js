@@ -6,7 +6,15 @@ export function getGlobalCoronaData(data = [], action) {
       default:
         return data;
     }
-  }
+}
+export function getAllCountriesData(data = [], action) {
+    switch (action.type) {
+      case types.GET_ALL_COUNTRIES_CORONA_DATA:
+        return action.getAllCountriesData;
+      default:
+        return data;
+    }
+}
 export function getSelectedCountry(data = {}, action) {
     switch (action.type) {
       case types.GET_SELECTED_COUNTRY:
@@ -14,4 +22,4 @@ export function getSelectedCountry(data = {}, action) {
       default:
         return data;
     }
-  }
+}

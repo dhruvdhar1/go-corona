@@ -40,7 +40,10 @@ class WorldMap extends Component {
             getSelectedCountryObject(ev.target.dataItem.dataContext);
         })
         var hs = polygonTemplate.states.create("hover");
-        hs.properties.fill = am4core.color("#e8912e");
+        hs.properties.fill = am4core.color("#f55142");
+
+        var click = polygonTemplate.states.create("hit");
+        click.properties.fill = am4core.color("#f55142");
         chart.zoomControl = new am4maps.ZoomControl();
         chart.events.on("ready", function(ev) {
             polygonSeries.getPolygonById("CN").isHover = true;

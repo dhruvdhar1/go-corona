@@ -10,43 +10,54 @@
     margin-top: 1rem;
     width: 100%;
 }
-.info-container{
-    display: flex;
-    // flex-direction: column;
-    // flex-wrap: wrap;
-    margin-top: 1rem;
-    width: 100%;
-    height: calc(100vh - 600px);
-    // border: solid aquamarine;
-    .sub-info-container{
+@media screen and (min-width: 768px) {
+    .info-container{
         display: flex;
-        flex-direction: column;
-        width: 50%;
-        height: auto;
-        .country-info{
+        margin-top: 1rem;
+        width: 100%;
+        height: calc(100vh - 600px);
+        .sub-info-container{
             display: flex;
-            // border: solid red;
-            height: 3.5rem;
-            .country-flag {
-                margin: 5px 5px 5px 10px;
-            }
-            .country-text{
-                padding-top: 5px;
-                padding-left: 10px;
-                font-family: 'Roboto', sans-serif;
-                font-size: 25px;
+            flex-direction: column;
+            width: 50%;
+            height: auto;
+            .data-point-container{
+                display: flex;
+                overflow-y: scroll;
+                .sub-vertical-section {
+                    padding-left: 20px;
+                    padding-top: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
             }
         }
-        .data-point-container{
+    }
+}
+@media screen and (max-width: 768px) {
+    .info-container{
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        width: 100%;
+        height: calc(100vh - 600px);
+        .sub-info-container{
             display: flex;
-            // border: solid yellowgreen;
-            .sub-vertical-section {
-                padding-left: 20px;
-                padding-top: 10px;
+            flex-direction: column;
+            width: auto;
+            height: 300px;
+            margin-bottom: 10px;
+            .data-point-container{
                 display: flex;
-                flex-direction: column;
-                height: 100%;
-                // width: 35%;
+                overflow-y: scroll;
+                .sub-vertical-section {
+                    padding-left: 20px;
+                    padding-top: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
             }
         }
     }
@@ -54,8 +65,17 @@
 .custom-pie-chart-container {
     margin-left: 10px;
     margin-right: 10px;
-    border: solid #e8912e;
+    border: solid firebrick;
 }
 .set-to-flex{
     display: flex;
+}
+.doughnut-chart-container {
+    display: flex;
+    height: 100%;
+}
+.mortality-rate-container{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px;
 }
