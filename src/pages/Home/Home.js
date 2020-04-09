@@ -146,8 +146,8 @@ class Home extends PureComponent {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="seperator"></div>
-                                    <div className="copyright-text">&copy;copyright 2019-2020. All rights reserved.</div>
+                                    {/* <div className="seperator"></div>
+                                    <div className="copyright-text">&copy;copyright 2019-2020. All rights reserved.</div> */}
                                 </div>
                             </div>
 
