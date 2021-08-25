@@ -6,12 +6,10 @@ import ClipLoader from "react-spinners/BounceLoader";
 import urls from '../../constants/urls'
 import * as actions from '../../actions/Application/actions';
 import DoughnutChart from '../../components/DoughnutChart/DoughnutChart';
-import DetailsPane from '../../components/DetailsPane/DetailsPane';
 import CountryTable from '../../components/CountryTable/CountryTable';
 import WorldMap from '../../components/WorldMap/WorldMap'
 import Topbar from '../../components/Topbar/Topbar'
 import {
-    formatCountrySpecificCoronaDataForDoughnutChart,
     formatCountrySpecificCoronaDataForDetailsPane,
     formatGlobalDataForTable
 } from '../../deserializer/countrySpecificDataDeserializer';

@@ -70,7 +70,7 @@ class Topbar extends Component {
             <div className="top-bar-root make-sticky">
                 <nav class="navbar navbar-expand-md navbar-light bg-light">
                     <a href="/" class="navbar-brand">
-                        <img src={logo} height="28" alt="goCorona" /> covid19Stats
+                        <img src={logo} height="28" alt="goCorona" /> goCorona
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" onClick={() => this.toggleMenu()}>
                         <span class="navbar-toggler-icon"></span>
